@@ -1,0 +1,313 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Unicode 的换行符号 e280a8 导致 JS 报错 - Wensj's Blog</title>
+	<meta name="author" content="Wensj">
+
+	
+	<meta name="description" content="Unicode 的换行符号 E280a8 导致 JS 报错 出现的现象 项目是使用 phoneGap（现称 Cordova ） 框架，JS 端 从 Navite 端获取到处理数据后，其实是段可执行的 JS 代码，当要执行它时，报 “SyntaxError: Unexpected token &hellip;">
+	
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="Wensj's Blog" type="application/atom+xml">
+	
+	<link rel="canonical" href="http://wwwensj.github.com/blog/2014/05/14/unicode-de-huan-xing-fu-hao-e280a8-dao-zhi-js-bao-cuo/">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,700' rel='stylesheet' type='text/css'>
+	<!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+</head>
+
+
+<body>
+	<div class="container">
+		<div class="left-col">
+			<div class="intrude-less">
+			<header id="header" class="inner"><div class="profilepic">	
+	<script src="/javascripts/md5.js"></script>
+	<script type="text/javascript">
+		document.write("<img src='/images/avatar.jpg' alt='Profile Picture' style='width: 160px;' />");
+	</script>
+</div>
+<h1><a href="/">Wensj's Blog</a></h1>
+<p class="subtitle">天道酬勤，记录点滴，爱生活.</p>
+<nav id="main-nav"><ul class="main-navigation">
+  <li><a href="/">首页</a></li>
+  <li><a href="/blog/archives">所有文章</a></li>
+  <li><a href="/about">关于我</a></li>
+</ul>
+</nav>
+<nav id="sub-nav">
+	<div class="social">
+		
+		<a class="weibo" href="http://www.weibo.com/qq100100" title="Weibo">Weibo</a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+	</div>
+</nav>
+<hgroup>
+<!--  <h1><a href="/">Wensj's Blog</a></h1>
+  
+    <h2>天道酬勤，记录点滴，爱生活.</h2>
+  
+-->
+<p class="subtitle">
+Your work is going to fill a large part of your life, and the only way to be truly satisfied is to do what you believe is great work.
+</p>
+<p class="subtitle" style="text-align: right;">-- Steve Jobs</p>
+</hgroup>
+
+</header>				
+			</div>
+		</div>	
+		<div class="mid-col">
+			
+				
+			
+			<div class="mid-col-container">
+				<div id="content" class="inner"><article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+	<h1 class="title" itemprop="name">Unicode 的换行符号 E280a8 导致 JS 报错</h1>
+	<div class="entry-content" itemprop="articleBody"><h3>出现的现象</h3>
+
+<p>项目是使用 <a href="http://cordova.apache.org/">phoneGap（现称 Cordova ）</a> 框架，<code>JS</code> 端 从 <code>Navite</code> 端获取到处理数据后，其实是段可执行的 <code>JS</code> 代码，当要执行它时，报 <strong>“SyntaxError: Unexpected token ILLEGAL”</strong> 的错误，意思是不合法的记号，代码无法再执行下去，使用肉眼在 <code>Linux</code> 下看到是空白行，在 <code>Windows</code> 下看到的是一些特殊字符， <a href="http://cordova.apache.org/">phoneGap</a> 的关键代码为</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// 获取到 Navite 端的处理结果</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">msg</span> <span class="o">=</span> <span class="nx">prompt</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;gap_poll:&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="k">if</span> <span class="p">(</span><span class="nx">msg</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">try</span> <span class="p">{</span>
+</span><span class='line'>            <span class="c1">// 用 eval 执行它</span>
+</span><span class='line'>            <span class="kd">var</span> <span class="nx">t</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="o">+</span><span class="nx">msg</span><span class="p">);</span>
+</span><span class='line'>        <span class="p">}</span><span class="k">catch</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>            <span class="c1">// catch 到错误是 SyntaxError: Unexpected token ILLEGAL</span>
+</span><span class='line'>            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;JSCallbackPolling: Message from Server: &quot;</span> <span class="o">+</span> <span class="nx">msg</span><span class="p">);</span>
+</span><span class='line'>            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;JSCallbackPolling Error: &quot;</span><span class="o">+</span><span class="nx">e</span><span class="p">);</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>    <span class="p">},</span> <span class="mi">1</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>问题分析</h3>
+
+<p>怀疑就是此特殊字符引起的 <code>JS</code> 语法错误，经服务器的同学查证，发现此字符的 <code>UTF-8</code> 的编码是 <code>e280a8</code>，这货是什么呢？ <code>Google</code> 后发现它的 <code>Unicode</code> 编码是 <code>\u2028</code>，正是 <code>Unicode</code> 下的换行符号。此符号对于 <code>JS</code> 下执行 <code>eval</code> 函数时出错，造成语法错误。由于出现此问题的是线上环境，当时服务器同学已经把数据库有问题的那个用户的字段给修改好了，因此我决定使用代码来模拟一下，模拟的思路是：</p>
+
+<blockquote><ul>
+<li>用 <code>Java</code> 来创建一个包含 <code>Unicode</code> 编码的换行符号 <code>\u2028</code> 的字符串；></li>
+<li>再转成 <code>UTF-8</code> 编码的字符串；</li>
+<li>回传给 <code>JS</code> 端</li>
+</ul>
+</blockquote>
+
+<p>代码如下：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="c1">//Unicode编码的字符中，意义是”HelloWorld,*HelloWorld”,*代表\u2028,它代表Unicode下的换行符</span>
+</span><span class='line'><span class="n">String</span> <span class="n">nicknameUnicode</span> <span class="o">=</span> <span class="s">&quot;\u0048\u0065\u006C\u006C\u006F World\u2028,\u0048\u0065\u006C\u006C\u006F World&quot;</span><span class="o">;</span>
+</span><span class='line'><span class="n">String</span> <span class="n">nicknameUTF8</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+</span><span class='line'><span class="k">try</span> <span class="o">{</span>
+</span><span class='line'>    <span class="c1">//转成utf-8,这里就包括Unicode的换行符号，返回给js会报错</span>
+</span><span class='line'>    <span class="n">nicknameUTF8</span> <span class="o">=</span> <span class="k">new</span> <span class="n">String</span><span class="o">(</span><span class="n">nicknameUnicode</span><span class="o">.</span><span class="na">getBytes</span><span class="o">(</span><span class="s">&quot;UTF-8&quot;</span><span class="o">),</span> <span class="s">&quot;UTF-8&quot;</span><span class="o">);</span>
+</span><span class='line'><span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">UnsupportedEncodingException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// 把这个 nicknameUTF-8传给JS端，代码非关键，就不贴了</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>果然，<code>JS</code> 端同样报了 <strong>“SyntaxError: Unexpected token ILLEGAL”</strong> 的错误</p>
+
+<h3>如何解决</h3>
+
+<h4>方式一：Java端解决</h4>
+
+<p>既然我们知道是 <code>Unicode</code> 的换行符号 <code>\u2028</code> 引起的，那就对症下药，把这个换行符号去掉就好了，因为项目用的是 <code>Java</code>，因此使用 <code>Java</code> 的方法去掉，其它语言应该也是一样的，只不过写法不同而已，发现这个换行符号用 <code>trim()</code> 方法是没法去除的，但可以用正则表达式去掉，代码如下：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'>
+</span><span class='line'><span class="c1">//正则替换换行符号，假如\u2028放在首尾，用trim()方法，也是替换不了的</span>
+</span><span class='line'><span class="n">nicknameUTF8</span> <span class="o">=</span> <span class="n">nicknameUTF8</span><span class="o">.</span><span class="na">replaceAll</span><span class="o">(</span><span class="s">&quot;\\s*&quot;</span><span class="o">,</span> <span class="s">&quot;&quot;</span><span class="o">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>好了，一切正常了。</p>
+
+<h4>方式二：JS 端解决</h4>
+
+<p>当从 <code>prompt</code> 函数拿到处理结果后，判断一下，如果存在这样的字符，则把它替换为空，再去执行 <code>eval</code> 函数，代码如下：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="c1">// 获取到 Navite 端的处理结果</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">msg</span> <span class="o">=</span> <span class="nx">prompt</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;gap_poll:&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">lineBreakCharReg</span> <span class="o">=</span> <span class="sr">/\u2028|\u2029/g</span><span class="p">;</span>
+</span><span class='line'><span class="c1">// 如果存在换行符号，则替换为空。</span>
+</span><span class='line'><span class="k">if</span> <span class="p">(</span><span class="nx">lineBreakCharReg</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">msg</span><span class="p">))</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">msg</span> <span class="o">=</span> <span class="nx">msg</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="nx">lineBreakCharReg</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="k">if</span> <span class="p">(</span><span class="nx">msg</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">try</span> <span class="p">{</span>
+</span><span class='line'>            <span class="c1">// 用 eval 执行它</span>
+</span><span class='line'>            <span class="kd">var</span> <span class="nx">t</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="o">+</span><span class="nx">msg</span><span class="p">);</span>
+</span><span class='line'>        <span class="p">}</span><span class="k">catch</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>            <span class="c1">// catch 到错误是 SyntaxError: Unexpected token ILLEGAL</span>
+</span><span class='line'>            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;JSCallbackPolling: Message from Server: &quot;</span> <span class="o">+</span> <span class="nx">msg</span><span class="p">);</span>
+</span><span class='line'>            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;JSCallbackPolling Error: &quot;</span><span class="o">+</span><span class="nx">e</span><span class="p">);</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>    <span class="p">},</span> <span class="mi">1</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>小小总结</h3>
+
+<blockquote><ul>
+<li><code>JS</code> 从服务端或者客户端获取到结果时，特别要注意是否包括换行符号，包括 <code>Unicode</code> 和 <code>UTF-8</code> 等的编码的换行符号，因为会引起 <code>JS</code> 的语法问题；</li>
+<li>那么其它的编码格式下的换行符号会不会也引起 <code>JS</code> 的语法问题呢？这里没有再进一步测试，有兴趣的可以试一下，告诉我，^_^；</li>
+<li>正则 <code>\s</code> 可去掉 <code>Unicode</code> 和 <code>UTF-8</code> 的换行符号，其它的编码换行我猜也可以的。</li>
+<li>后来经验证，\u2029也会导致这样的问题，这个是 <code>Unicode</code> 下的段换行符号。
+
+<h3>参考的资料</h3></li>
+</ul>
+</blockquote>
+
+<p><a href="http://stackoverflow.com/questions/10556875/list-of-unicode-characters-that-should-be-filtered-in-output">List of Unicode characters that should be filtered in output? &mdash;stackoverflow</a></p>
+</div>
+
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style addthis_16x16_style">
+	
+	<a class="addthis_button_sinaweibo"></a>
+	
+	
+	
+	
+	
+	<a class="addthis_button_compact"></a>
+	<a class="addthis_counter addthis_bubble_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/300/addthis_widget.js#pubid="></script>
+</div>
+
+
+
+<section id="comment">
+    <h1 class="title">Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</section>
+</div>
+			</div>
+			<footer id="footer" class="inner"><p>
+  Copyright &copy; 2014 - Wensj -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+Design credit: <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a></footer>
+			<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'wensj';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://wwwensj.github.com/blog/2014/05/14/unicode-de-huan-xing-fu-hao-e280a8-dao-zhi-js-bao-cuo/';
+        var disqus_url = 'http://wwwensj.github.com/blog/2014/05/14/unicode-de-huan-xing-fu-hao-e280a8-dao-zhi-js-bao-cuo/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+		</div>
+	</div>
+</body>
+</html>

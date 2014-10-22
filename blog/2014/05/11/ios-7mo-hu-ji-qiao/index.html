@@ -1,0 +1,258 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>iOS 7模糊技巧 - Wensj's Blog</title>
+	<meta name="author" content="Wensj">
+
+	
+	<meta name="description" content="iOS 7模糊技巧 原文出处：http://damir.me/ios7-blurring-techniques 你可能想在iOS 7上实现模糊的view，那么应该要怎么做呢？ 静态模糊（blur） 要知道这并不是一种新的技术。它在iOS7之前的版本就可以使用，但是有限制的。 &hellip;">
+	
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="Wensj's Blog" type="application/atom+xml">
+	
+	<link rel="canonical" href="http://wwwensj.github.com/blog/2014/05/11/ios-7mo-hu-ji-qiao/">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,700' rel='stylesheet' type='text/css'>
+	<!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+</head>
+
+
+<body>
+	<div class="container">
+		<div class="left-col">
+			<div class="intrude-less">
+			<header id="header" class="inner"><div class="profilepic">	
+	<script src="/javascripts/md5.js"></script>
+	<script type="text/javascript">
+		document.write("<img src='/images/avatar.jpg' alt='Profile Picture' style='width: 160px;' />");
+	</script>
+</div>
+<h1><a href="/">Wensj's Blog</a></h1>
+<p class="subtitle">天道酬勤，记录点滴，爱生活.</p>
+<nav id="main-nav"><ul class="main-navigation">
+  <li><a href="/">首页</a></li>
+  <li><a href="/blog/archives">所有文章</a></li>
+  <li><a href="/about">关于我</a></li>
+</ul>
+</nav>
+<nav id="sub-nav">
+	<div class="social">
+		
+		<a class="weibo" href="http://www.weibo.com/qq100100" title="Weibo">Weibo</a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+	</div>
+</nav>
+<hgroup>
+<!--  <h1><a href="/">Wensj's Blog</a></h1>
+  
+    <h2>天道酬勤，记录点滴，爱生活.</h2>
+  
+-->
+<p class="subtitle">
+Your work is going to fill a large part of your life, and the only way to be truly satisfied is to do what you believe is great work.
+</p>
+<p class="subtitle" style="text-align: right;">-- Steve Jobs</p>
+</hgroup>
+
+</header>				
+			</div>
+		</div>	
+		<div class="mid-col">
+			
+				
+			
+			<div class="mid-col-container">
+				<div id="content" class="inner"><article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+	<h1 class="title" itemprop="name">iOS 7模糊技巧</h1>
+	<div class="entry-content" itemprop="articleBody"><p>原文出处：<a href="http://damir.me/ios7-blurring-techniques">http://damir.me/ios7-blurring-techniques</a></p>
+
+<hr />
+
+<p>你可能想在iOS 7上实现模糊的view，那么应该要怎么做呢？</p>
+
+<h2>静态模糊（blur）</h2>
+
+<p>要知道这并不是一种新的技术。它在iOS7之前的版本就可以使用，但是有限制的。主要的做法就是获取一个<code>view</code>的快照（即做成一张图片），然后把图片模糊化。</p>
+
+<p>在iOS 6下获取快照使用<code>renderInContext:</code>方法，但它耗时很长，幸运的是，在iOS 7下在<code>view</code>里新增加了一个叫<code>drawViewHierarchyInRect:afterScreenUpdates:</code>的方法，它获得的效果是一样的。它能很快地获取一个<code>view</code>的快照。有多快？这里和<code>renderInContext:</code>方法对比一下。</p>
+
+<p><img src="http://f.cl.ly/items/323c000h013V2f3R2p3b/Screen%20Shot%202013-09-16%20at%2001.12.37%20.png" alt="comparison-image" /></p>
+
+<p>它比<code>renderInContext:</code>方法快了15倍。现在我们能获得一个快照了，那我们怎么做才能获得模糊的效果呢？<code>Apple</code>公司也帮我们封装好了方法。你可以通过<code>Apple</code>公司创建好的<code>UIImageEffects</code>这个<code>category</code>来获得模糊的效果。（找到<code>Sample Code</code>><code>and search for ImageEffects</code>）</p>
+
+<hr />
+
+<h2>例子</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="c1">// YourUIView.m (UIView)</span>
+</span><span class='line'><span class="cp">#import &quot;UIImage+ImageEffects.h&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">-</span><span class="p">(</span><span class="n">UIImage</span> <span class="o">*</span><span class="p">)</span><span class="nf">blurredSnapshot</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="c1">// 创建图片的上下文</span>
+</span><span class='line'>    <span class="n">UIGraphicsBeginImageContextWithOptions</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">bounds</span><span class="p">.</span><span class="n">size</span><span class="p">,</span> <span class="n">NO</span><span class="p">,</span> <span class="n">self</span><span class="p">.</span><span class="n">window</span><span class="p">.</span><span class="n">screen</span><span class="p">.</span><span class="n">scale</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// 这个就是新的 API</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">self</span> <span class="nl">drawViewHierarchyInRect:</span><span class="n">self</span><span class="p">.</span><span class="n">frame</span> <span class="nl">afterScreenUpdates:</span><span class="n">NO</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// 获取快照</span>
+</span><span class='line'>    <span class="n">UIImage</span> <span class="o">*</span><span class="n">snapshotImage</span> <span class="o">=</span> <span class="n">UIGraphicsGetImageFromCurrentImageContext</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// 使用Apple的 UIImageEffect category 把模糊效果应用到图片中</span>
+</span><span class='line'>    <span class="n">UIImage</span> <span class="o">*</span><span class="n">blurredSnapshotImage</span> <span class="o">=</span> <span class="p">[</span><span class="n">snapshotImage</span> <span class="n">applyLightEffect</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// 或者使用 &quot;UIImage+ImageEffects.h&quot; 中的其它效果</span>
+</span><span class='line'>    <span class="c1">// UIImage *blurredSnapshotImage = [snapshotImage applyDarkEffect];</span>
+</span><span class='line'>    <span class="c1">// UIImage *blurredSnapshotImage = [snapshotImage applyExtraLightEffect];</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// 清理一下</span>
+</span><span class='line'>    <span class="n">UIGraphicsEndImageContext</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">return</span> <span class="n">blurredSnapshotImage</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>提示：Make it a <code>UIView</code> category if you plan to blur th <code>sh**</code> out of your application.（不懂sh**是什么，干脆直接上原话好了）</p>
+
+<hr />
+
+<h2>实时模糊（blur）</h2>
+
+<p>你怎么才能做到像系统的控制中心或通知中心的那种实时模糊呢？<code>Apple</code>（经常但不总是）使用我们不能使用的自定义私有API来做的。</p>
+
+<hr />
+
+<h2>聪明的小技巧</h2>
+
+<p><code>Andy Matuschak</code>指出，<code>Apple</code>是通过使用了一些小技巧，把静态的图片做到或者说是模拟到实时模糊的效果。这种小技巧的做法只是在旧的设备上(iPhone 5之前)使用的，在iPhone 5 上的模糊效果似乎是实时的，没有任何技巧。</p>
+
+<p>然而，让我们拿通知中心（iOS 7上的）作为一个例子。他（<code>Andy Matuschak</code>）的意思是使用了技巧（我猜的），那就是获得了一个快照并从起点开始模糊它，并把它设置为通知中心的背景图。当用户拉下通知中心时，它通过增加背景图高度来模拟毛玻璃模糊效果。这给用户的印象就是实时的模糊效果。</p>
+
+<hr />
+
+<h2>UIToolbar</h2>
+
+<p>最后同样重要的是，你可以更好地利用<code>UIToolbar</code> 这个类（而不是<code>UIView</code>）。确保你设置了<code>barStyle</code>属性为<code>UIBarStyleBlack</code>，<code>translucent</code>属性为<code>YES</code>。
+你随意地调整<code>barTintColor</code>就行了！这样将会给你一个半透明实时模糊的view。</p>
+
+<p>有没有一个更加优雅和简洁的解决办法呢？还真没有，<code>UIToolbar</code>只能当成一个toolbar使用。但是如果你真的想实时模糊<code>UIView</code>的而<code>Apple</code>又不提供这个API的话，它可能是唯一的方法了。它当然是不会被拒绝的。</p>
+</div>
+
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style addthis_16x16_style">
+	
+	<a class="addthis_button_sinaweibo"></a>
+	
+	
+	
+	
+	
+	<a class="addthis_button_compact"></a>
+	<a class="addthis_counter addthis_bubble_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/300/addthis_widget.js#pubid="></script>
+</div>
+
+
+
+<section id="comment">
+    <h1 class="title">Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</section>
+</div>
+			</div>
+			<footer id="footer" class="inner"><p>
+  Copyright &copy; 2014 - Wensj -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+Design credit: <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a></footer>
+			<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'wensj';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://wwwensj.github.com/blog/2014/05/11/ios-7mo-hu-ji-qiao/';
+        var disqus_url = 'http://wwwensj.github.com/blog/2014/05/11/ios-7mo-hu-ji-qiao/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[分类: 疑难杂症 | Wensj's Blog]]></title>
+  <link href="http://wwwensj.github.com/blog/categories/yi-nan-za-zheng/atom.xml" rel="self"/>
+  <link href="http://wwwensj.github.com/"/>
+  <updated>2014-10-22T16:41:48+08:00</updated>
+  <id>http://wwwensj.github.com/</id>
+  <author>
+    <name><![CDATA[Wensj]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Unicode 的换行符号 E280a8 导致 JS 报错]]></title>
+    <link href="http://wwwensj.github.com/blog/2014/05/14/unicode-de-huan-xing-fu-hao-e280a8-dao-zhi-js-bao-cuo/"/>
+    <updated>2014-05-14T21:52:40+08:00</updated>
+    <id>http://wwwensj.github.com/blog/2014/05/14/unicode-de-huan-xing-fu-hao-e280a8-dao-zhi-js-bao-cuo</id>
+    <content type="html"><![CDATA[<h3>出现的现象</h3>
+
+<p>项目是使用 <a href="http://cordova.apache.org/">phoneGap（现称 Cordova ）</a> 框架，<code>JS</code> 端 从 <code>Navite</code> 端获取到处理数据后，其实是段可执行的 <code>JS</code> 代码，当要执行它时，报 <strong>“SyntaxError: Unexpected token ILLEGAL”</strong> 的错误，意思是不合法的记号，代码无法再执行下去，使用肉眼在 <code>Linux</code> 下看到是空白行，在 <code>Windows</code> 下看到的是一些特殊字符， <a href="http://cordova.apache.org/">phoneGap</a> 的关键代码为</p>
+
+<p>```javascript</p>
+
+<p>// 获取到 Navite 端的处理结果
+var msg = prompt(&ldquo;&rdquo;, &ldquo;gap_poll:&rdquo;);
+if (msg) {</p>
+
+<pre><code>setTimeout(function() {
+    try {
+        // 用 eval 执行它
+        var t = eval(""+msg);
+    }catch (e) {
+        // catch 到错误是 SyntaxError: Unexpected token ILLEGAL
+        console.log("JSCallbackPolling: Message from Server: " + msg);
+        console.log("JSCallbackPolling Error: "+e);
+    }
+}, 1);
+</code></pre>
+
+<p>}</p>
+
+<p>```</p>
+
+<h3>问题分析</h3>
+
+<p>怀疑就是此特殊字符引起的 <code>JS</code> 语法错误，经服务器的同学查证，发现此字符的 <code>UTF-8</code> 的编码是 <code>e280a8</code>，这货是什么呢？ <code>Google</code> 后发现它的 <code>Unicode</code> 编码是 <code>\u2028</code>，正是 <code>Unicode</code> 下的换行符号。此符号对于 <code>JS</code> 下执行 <code>eval</code> 函数时出错，造成语法错误。由于出现此问题的是线上环境，当时服务器同学已经把数据库有问题的那个用户的字段给修改好了，因此我决定使用代码来模拟一下，模拟的思路是：</p>
+
+<blockquote><ul>
+<li>用 <code>Java</code> 来创建一个包含 <code>Unicode</code> 编码的换行符号 <code>\u2028</code> 的字符串；></li>
+<li>再转成 <code>UTF-8</code> 编码的字符串；</li>
+<li>回传给 <code>JS</code> 端</li>
+</ul>
+</blockquote>
+
+<p>代码如下：</p>
+
+<p>```java</p>
+
+<p>//Unicode编码的字符中，意义是”HelloWorld,<em>HelloWorld”,</em>代表\u2028,它代表Unicode下的换行符
+String nicknameUnicode = &ldquo;\u0048\u0065\u006C\u006C\u006F World\u2028,\u0048\u0065\u006C\u006C\u006F World&rdquo;;
+String nicknameUTF8 = null;
+try {</p>
+
+<pre><code>//转成utf-8,这里就包括Unicode的换行符号，返回给js会报错
+nicknameUTF8 = new String(nicknameUnicode.getBytes("UTF-8"), "UTF-8");
+</code></pre>
+
+<p>} catch (UnsupportedEncodingException e) {</p>
+
+<pre><code>e.printStackTrace();
+</code></pre>
+
+<p>}</p>
+
+<p>// 把这个 nicknameUTF-8传给JS端，代码非关键，就不贴了</p>
+
+<p>```</p>
+
+<p>果然，<code>JS</code> 端同样报了 <strong>“SyntaxError: Unexpected token ILLEGAL”</strong> 的错误</p>
+
+<h3>如何解决</h3>
+
+<h4>方式一：Java端解决</h4>
+
+<p>既然我们知道是 <code>Unicode</code> 的换行符号 <code>\u2028</code> 引起的，那就对症下药，把这个换行符号去掉就好了，因为项目用的是 <code>Java</code>，因此使用 <code>Java</code> 的方法去掉，其它语言应该也是一样的，只不过写法不同而已，发现这个换行符号用 <code>trim()</code> 方法是没法去除的，但可以用正则表达式去掉，代码如下：</p>
+
+<p>```java</p>
+
+<p>//正则替换换行符号，假如\u2028放在首尾，用trim()方法，也是替换不了的
+nicknameUTF8 = nicknameUTF8.replaceAll(&ldquo;\s*&rdquo;, &ldquo;&rdquo;);</p>
+
+<p>```</p>
+
+<p>好了，一切正常了。</p>
+
+<h4>方式二：JS 端解决</h4>
+
+<p>当从 <code>prompt</code> 函数拿到处理结果后，判断一下，如果存在这样的字符，则把它替换为空，再去执行 <code>eval</code> 函数，代码如下：</p>
+
+<p>```javascript</p>
+
+<p>// 获取到 Navite 端的处理结果
+var msg = prompt(&ldquo;&rdquo;, &ldquo;gap_poll:&rdquo;);
+var lineBreakCharReg = /\u2028|\u2029/g;
+// 如果存在换行符号，则替换为空。
+if (lineBreakCharReg.test(msg)) {</p>
+
+<pre><code>msg = msg.replace(lineBreakCharReg, "");}
+</code></pre>
+
+<p>if (msg) {</p>
+
+<pre><code>setTimeout(function() {
+    try {
+        // 用 eval 执行它
+        var t = eval(""+msg);
+    }catch (e) {
+        // catch 到错误是 SyntaxError: Unexpected token ILLEGAL
+        console.log("JSCallbackPolling: Message from Server: " + msg);
+        console.log("JSCallbackPolling Error: "+e);
+    }
+}, 1);
+</code></pre>
+
+<p>}</p>
+
+<p>```</p>
+
+<h3>小小总结</h3>
+
+<blockquote><ul>
+<li><code>JS</code> 从服务端或者客户端获取到结果时，特别要注意是否包括换行符号，包括 <code>Unicode</code> 和 <code>UTF-8</code> 等的编码的换行符号，因为会引起 <code>JS</code> 的语法问题；</li>
+<li>那么其它的编码格式下的换行符号会不会也引起 <code>JS</code> 的语法问题呢？这里没有再进一步测试，有兴趣的可以试一下，告诉我，^_^；</li>
+<li>正则 <code>\s</code> 可去掉 <code>Unicode</code> 和 <code>UTF-8</code> 的换行符号，其它的编码换行我猜也可以的。</li>
+<li>后来经验证，\u2029也会导致这样的问题，这个是 <code>Unicode</code> 下的段换行符号。
+
+<h3>参考的资料</h3></li>
+</ul>
+</blockquote>
+
+<p><a href="http://stackoverflow.com/questions/10556875/list-of-unicode-characters-that-should-be-filtered-in-output">List of Unicode characters that should be filtered in output? &mdash;stackoverflow</a></p>
+]]></content>
+  </entry>
+  
+</feed>

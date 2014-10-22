@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[分类: iOS | Wensj's Blog]]></title>
+  <link href="http://wwwensj.github.com/blog/categories/ios/atom.xml" rel="self"/>
+  <link href="http://wwwensj.github.com/"/>
+  <updated>2014-10-22T16:41:48+08:00</updated>
+  <id>http://wwwensj.github.com/</id>
+  <author>
+    <name><![CDATA[Wensj]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[更方便地删除所有的subView]]></title>
+    <link href="http://wwwensj.github.com/blog/2014/05/11/geng-fang-bian-di-shan-chu-suo-you-de-subview/"/>
+    <updated>2014-05-11T23:15:17+08:00</updated>
+    <id>http://wwwensj.github.com/blog/2014/05/11/geng-fang-bian-di-shan-chu-suo-you-de-subview</id>
+    <content type="html"><![CDATA[<hr />
+
+<p>参考出处：<a href="http://stackoverflow.com/questions/2156015/remove-all-subviews">http://stackoverflow.com/questions/2156015/remove-all-subviews</a></p>
+
+<hr />
+
+<h3>常用做法</h3>
+
+<p>通常我们移除一个<code>View</code>中的所有subView，都会使用遍历的方式去移除，代码如下：
+```objective-c</p>
+
+<pre><code>UIView *view = [[UIView alloc] initWithFrame:CGRectZero];
+UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+[view addSubview:button];
+UIImageView *imageview = [[UIImageView alloc] initWithFrame:CGRectZero];
+[view addSubview:imageview];
+NSLog(@"subview count is %ld", view.subviews.count);//输出2
+for (id subview in view.subviews) {
+    [subview removeFromSuperview];
+}
+NSLog(@"subview count is %ld", view.subviews.count);//输出0
+</code></pre>
+
+<p>```</p>
+
+<h3>更方便的做法</h3>
+
+<p>在<code>iOS</code>上的写法是：
+```objective-c</p>
+
+<pre><code>UIView *view = [[UIView alloc] initWithFrame:CGRectZero];
+UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+[view addSubview:button];
+UIImageView *imageview = [[UIImageView alloc] initWithFrame:CGRectZero];
+[view addSubview:imageview];
+NSLog(@"subview count is %ld", view.subviews.count);//输出2
+// 使用makeObjectPerformSelector
+[[view subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
+NSLog(@"subview count is %ld", view.subviews.count);//输出0
+</code></pre>
+
+<p>```</p>
+
+<p>在<code>Mac</code>上的做法是：
+```objective-c
+[someNSView setSubviews:[NSArray array]];</p>
+
+<p>```</p>
+]]></content>
+  </entry>
+  
+</feed>
