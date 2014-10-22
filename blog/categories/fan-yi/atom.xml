@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[分类: 翻译 | Wensj's Blog]]></title>
+  <link href="http://www.wensj.net/blog/categories/fan-yi/atom.xml" rel="self"/>
+  <link href="http://www.wensj.net/"/>
+  <updated>2014-10-22T16:13:39+08:00</updated>
+  <id>http://www.wensj.net/</id>
+  <author>
+    <name><![CDATA[Wensj]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[iOS 7模糊技巧]]></title>
+    <link href="http://www.wensj.net/blog/2014/05/11/ios-7mo-hu-ji-qiao/"/>
+    <updated>2014-05-11T21:05:22+08:00</updated>
+    <id>http://www.wensj.net/blog/2014/05/11/ios-7mo-hu-ji-qiao</id>
+    <content type="html"><![CDATA[<p>原文出处：<a href="http://damir.me/ios7-blurring-techniques">http://damir.me/ios7-blurring-techniques</a></p>
+
+<hr />
+
+<p>你可能想在iOS 7上实现模糊的view，那么应该要怎么做呢？</p>
+
+<h2>静态模糊（blur）</h2>
+
+<p>要知道这并不是一种新的技术。它在iOS7之前的版本就可以使用，但是有限制的。主要的做法就是获取一个<code>view</code>的快照（即做成一张图片），然后把图片模糊化。</p>
+
+<p>在iOS 6下获取快照使用<code>renderInContext:</code>方法，但它耗时很长，幸运的是，在iOS 7下在<code>view</code>里新增加了一个叫<code>drawViewHierarchyInRect:afterScreenUpdates:</code>的方法，它获得的效果是一样的。它能很快地获取一个<code>view</code>的快照。有多快？这里和<code>renderInContext:</code>方法对比一下。</p>
+
+<p><img src="http://f.cl.ly/items/323c000h013V2f3R2p3b/Screen%20Shot%202013-09-16%20at%2001.12.37%20.png" alt="comparison-image" /></p>
+
+<p>它比<code>renderInContext:</code>方法快了15倍。现在我们能获得一个快照了，那我们怎么做才能获得模糊的效果呢？<code>Apple</code>公司也帮我们封装好了方法。你可以通过<code>Apple</code>公司创建好的<code>UIImageEffects</code>这个<code>category</code>来获得模糊的效果。（找到<code>Sample Code</code>><code>and search for ImageEffects</code>）</p>
+
+<hr />
+
+<h2>例子</h2>
+
+<p>```objective-c</p>
+
+<p>// YourUIView.m (UIView)</p>
+
+<h1>import &ldquo;UIImage+ImageEffects.h&rdquo;</h1>
+
+<p>&ndash;(UIImage *)blurredSnapshot
+{</p>
+
+<pre><code>// 创建图片的上下文
+UIGraphicsBeginImageContextWithOptions(self.bounds.size, NO, self.window.screen.scale);
+
+// 这个就是新的 API
+[self drawViewHierarchyInRect:self.frame afterScreenUpdates:NO];
+
+// 获取快照
+UIImage *snapshotImage = UIGraphicsGetImageFromCurrentImageContext();
+
+// 使用Apple的 UIImageEffect category 把模糊效果应用到图片中
+UIImage *blurredSnapshotImage = [snapshotImage applyLightEffect];
+
+// 或者使用 "UIImage+ImageEffects.h" 中的其它效果
+// UIImage *blurredSnapshotImage = [snapshotImage applyDarkEffect];
+// UIImage *blurredSnapshotImage = [snapshotImage applyExtraLightEffect];
+
+// 清理一下
+UIGraphicsEndImageContext();
+
+return blurredSnapshotImage;
+</code></pre>
+
+<p>}</p>
+
+<p>```</p>
+
+<p>提示：Make it a <code>UIView</code> category if you plan to blur th <code>sh**</code> out of your application.（不懂sh**是什么，干脆直接上原话好了）</p>
+
+<hr />
+
+<h2>实时模糊（blur）</h2>
+
+<p>你怎么才能做到像系统的控制中心或通知中心的那种实时模糊呢？<code>Apple</code>（经常但不总是）使用我们不能使用的自定义私有API来做的。</p>
+
+<hr />
+
+<h2>聪明的小技巧</h2>
+
+<p><code>Andy Matuschak</code>指出，<code>Apple</code>是通过使用了一些小技巧，把静态的图片做到或者说是模拟到实时模糊的效果。这种小技巧的做法只是在旧的设备上(iPhone 5之前)使用的，在iPhone 5 上的模糊效果似乎是实时的，没有任何技巧。</p>
+
+<p>然而，让我们拿通知中心（iOS 7上的）作为一个例子。他（<code>Andy Matuschak</code>）的意思是使用了技巧（我猜的），那就是获得了一个快照并从起点开始模糊它，并把它设置为通知中心的背景图。当用户拉下通知中心时，它通过增加背景图高度来模拟毛玻璃模糊效果。这给用户的印象就是实时的模糊效果。</p>
+
+<hr />
+
+<h2>UIToolbar</h2>
+
+<p>最后同样重要的是，你可以更好地利用<code>UIToolbar</code> 这个类（而不是<code>UIView</code>）。确保你设置了<code>barStyle</code>属性为<code>UIBarStyleBlack</code>，<code>translucent</code>属性为<code>YES</code>。
+你随意地调整<code>barTintColor</code>就行了！这样将会给你一个半透明实时模糊的view。</p>
+
+<p>有没有一个更加优雅和简洁的解决办法呢？还真没有，<code>UIToolbar</code>只能当成一个toolbar使用。但是如果你真的想实时模糊<code>UIView</code>的而<code>Apple</code>又不提供这个API的话，它可能是唯一的方法了。它当然是不会被拒绝的。</p>
+]]></content>
+  </entry>
+  
+</feed>
