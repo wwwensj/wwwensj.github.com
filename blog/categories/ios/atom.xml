@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[分类: iOS | Wensj's Blog]]></title>
-  <link href="http://www.wensj.net/blog/categories/ios/atom.xml" rel="self"/>
-  <link href="http://www.wensj.net/"/>
-  <updated>2014-10-22T16:21:12+08:00</updated>
-  <id>http://www.wensj.net/</id>
+  <link href="http://wwwensj.github.com/blog/categories/ios/atom.xml" rel="self"/>
+  <link href="http://wwwensj.github.com/"/>
+  <updated>2014-10-22T16:27:05+08:00</updated>
+  <id>http://wwwensj.github.com/</id>
   <author>
     <name><![CDATA[Wensj]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[更方便地删除所有的subView]]></title>
-    <link href="http://www.wensj.net/blog/2014/05/11/geng-fang-bian-di-shan-chu-suo-you-de-subview/"/>
+    <link href="http://wwwensj.github.com/blog/2014/05/11/geng-fang-bian-di-shan-chu-suo-you-de-subview/"/>
     <updated>2014-05-11T23:15:17+08:00</updated>
-    <id>http://www.wensj.net/blog/2014/05/11/geng-fang-bian-di-shan-chu-suo-you-de-subview</id>
+    <id>http://wwwensj.github.com/blog/2014/05/11/geng-fang-bian-di-shan-chu-suo-you-de-subview</id>
     <content type="html"><![CDATA[<hr />
 
 <p>参考出处：<a href="http://stackoverflow.com/questions/2156015/remove-all-subviews">http://stackoverflow.com/questions/2156015/remove-all-subviews</a></p>

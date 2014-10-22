@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Wensj's Blog]]></title>
-  <link href="http://www.wensj.net/atom.xml" rel="self"/>
-  <link href="http://www.wensj.net/"/>
-  <updated>2014-10-22T16:21:12+08:00</updated>
-  <id>http://www.wensj.net/</id>
+  <link href="http://wwwensj.github.com/atom.xml" rel="self"/>
+  <link href="http://wwwensj.github.com/"/>
+  <updated>2014-10-22T16:27:05+08:00</updated>
+  <id>http://wwwensj.github.com/</id>
   <author>
     <name><![CDATA[Wensj]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[常用的 ADB 命令]]></title>
-    <link href="http://www.wensj.net/blog/2014/05/21/chang-yong-de-adb-ming-ling/"/>
+    <link href="http://wwwensj.github.com/blog/2014/05/21/chang-yong-de-adb-ming-ling/"/>
     <updated>2014-05-21T23:46:05+08:00</updated>
-    <id>http://www.wensj.net/blog/2014/05/21/chang-yong-de-adb-ming-ling</id>
+    <id>http://wwwensj.github.com/blog/2014/05/21/chang-yong-de-adb-ming-ling</id>
     <content type="html"><![CDATA[<p>最近在搞 Andorid 开发，在调用的过程中，经常会用到 <code>ADB</code>，这里简单做个此命令使用频率较高的用法。</p>
 
 <p><code>ADB</code> 全称是 <strong>Android Debug Bridge</strong>, 是 Android SDK 里的一个工具, 用它可以直接操作管理 Android 模拟器或者 Andriod 设备。</p>
@@ -76,9 +76,9 @@
   
   <entry>
     <title type="html"><![CDATA[Unicode 的换行符号 e280a8 导致 JS 报错]]></title>
-    <link href="http://www.wensj.net/blog/2014/05/14/unicode-de-huan-xing-fu-hao-e280a8-dao-zhi-js-bao-cuo/"/>
+    <link href="http://wwwensj.github.com/blog/2014/05/14/unicode-de-huan-xing-fu-hao-e280a8-dao-zhi-js-bao-cuo/"/>
     <updated>2014-05-14T21:52:40+08:00</updated>
-    <id>http://www.wensj.net/blog/2014/05/14/unicode-de-huan-xing-fu-hao-e280a8-dao-zhi-js-bao-cuo</id>
+    <id>http://wwwensj.github.com/blog/2014/05/14/unicode-de-huan-xing-fu-hao-e280a8-dao-zhi-js-bao-cuo</id>
     <content type="html"><![CDATA[<h3>出现的现象</h3>
 
 <p>项目是使用 <a href="http://cordova.apache.org/">phoneGap（现称 Cordova ）</a> 框架，<code>JS</code> 端 从 <code>Navite</code> 端获取到处理数据后，其实是段可执行的 <code>JS</code> 代码，当要执行它时，报 <strong>“SyntaxError: Unexpected token ILLEGAL”</strong> 的错误，意思是不合法的记号，代码无法再执行下去，使用肉眼在 <code>Linux</code> 下看到是空白行，在 <code>Windows</code> 下看到的是一些特殊字符， <a href="http://cordova.apache.org/">phoneGap</a> 的关键代码为</p>
@@ -238,9 +238,9 @@
   
   <entry>
     <title type="html"><![CDATA[更方便地删除所有的subView]]></title>
-    <link href="http://www.wensj.net/blog/2014/05/11/geng-fang-bian-di-shan-chu-suo-you-de-subview/"/>
+    <link href="http://wwwensj.github.com/blog/2014/05/11/geng-fang-bian-di-shan-chu-suo-you-de-subview/"/>
     <updated>2014-05-11T23:15:17+08:00</updated>
-    <id>http://www.wensj.net/blog/2014/05/11/geng-fang-bian-di-shan-chu-suo-you-de-subview</id>
+    <id>http://wwwensj.github.com/blog/2014/05/11/geng-fang-bian-di-shan-chu-suo-you-de-subview</id>
     <content type="html"><![CDATA[<hr />
 
 <p>参考出处：<a href="http://stackoverflow.com/questions/2156015/remove-all-subviews">http://stackoverflow.com/questions/2156015/remove-all-subviews</a></p>
@@ -310,9 +310,9 @@
   
   <entry>
     <title type="html"><![CDATA[iOS 7模糊技巧]]></title>
-    <link href="http://www.wensj.net/blog/2014/05/11/ios-7mo-hu-ji-qiao/"/>
+    <link href="http://wwwensj.github.com/blog/2014/05/11/ios-7mo-hu-ji-qiao/"/>
     <updated>2014-05-11T21:05:22+08:00</updated>
-    <id>http://www.wensj.net/blog/2014/05/11/ios-7mo-hu-ji-qiao</id>
+    <id>http://wwwensj.github.com/blog/2014/05/11/ios-7mo-hu-ji-qiao</id>
     <content type="html"><![CDATA[<p>原文出处：<a href="http://damir.me/ios7-blurring-techniques">http://damir.me/ios7-blurring-techniques</a></p>
 
 <hr />

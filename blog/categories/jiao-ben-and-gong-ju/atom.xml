@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[分类: 脚本&工具 | Wensj's Blog]]></title>
-  <link href="http://www.wensj.net/blog/categories/jiao-ben-and-gong-ju/atom.xml" rel="self"/>
-  <link href="http://www.wensj.net/"/>
-  <updated>2014-10-22T16:21:12+08:00</updated>
-  <id>http://www.wensj.net/</id>
+  <link href="http://wwwensj.github.com/blog/categories/jiao-ben-and-gong-ju/atom.xml" rel="self"/>
+  <link href="http://wwwensj.github.com/"/>
+  <updated>2014-10-22T16:27:05+08:00</updated>
+  <id>http://wwwensj.github.com/</id>
   <author>
     <name><![CDATA[Wensj]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[常用的 ADB 命令]]></title>
-    <link href="http://www.wensj.net/blog/2014/05/21/chang-yong-de-adb-ming-ling/"/>
+    <link href="http://wwwensj.github.com/blog/2014/05/21/chang-yong-de-adb-ming-ling/"/>
     <updated>2014-05-21T23:46:05+08:00</updated>
-    <id>http://www.wensj.net/blog/2014/05/21/chang-yong-de-adb-ming-ling</id>
+    <id>http://wwwensj.github.com/blog/2014/05/21/chang-yong-de-adb-ming-ling</id>
     <content type="html"><![CDATA[<p>最近在搞 Andorid 开发，在调用的过程中，经常会用到 <code>ADB</code>，这里简单做个此命令使用频率较高的用法。</p>
 
 <p><code>ADB</code> 全称是 <strong>Android Debug Bridge</strong>, 是 Android SDK 里的一个工具, 用它可以直接操作管理 Android 模拟器或者 Andriod 设备。</p>

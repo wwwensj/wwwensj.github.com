@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[分类: 疑难杂症 | Wensj's Blog]]></title>
-  <link href="http://www.wensj.net/blog/categories/yi-nan-za-zheng/atom.xml" rel="self"/>
-  <link href="http://www.wensj.net/"/>
-  <updated>2014-10-22T16:21:12+08:00</updated>
-  <id>http://www.wensj.net/</id>
+  <link href="http://wwwensj.github.com/blog/categories/yi-nan-za-zheng/atom.xml" rel="self"/>
+  <link href="http://wwwensj.github.com/"/>
+  <updated>2014-10-22T16:27:05+08:00</updated>
+  <id>http://wwwensj.github.com/</id>
   <author>
     <name><![CDATA[Wensj]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Unicode 的换行符号 E280a8 导致 JS 报错]]></title>
-    <link href="http://www.wensj.net/blog/2014/05/14/unicode-de-huan-xing-fu-hao-e280a8-dao-zhi-js-bao-cuo/"/>
+    <link href="http://wwwensj.github.com/blog/2014/05/14/unicode-de-huan-xing-fu-hao-e280a8-dao-zhi-js-bao-cuo/"/>
     <updated>2014-05-14T21:52:40+08:00</updated>
-    <id>http://www.wensj.net/blog/2014/05/14/unicode-de-huan-xing-fu-hao-e280a8-dao-zhi-js-bao-cuo</id>
+    <id>http://wwwensj.github.com/blog/2014/05/14/unicode-de-huan-xing-fu-hao-e280a8-dao-zhi-js-bao-cuo</id>
     <content type="html"><![CDATA[<h3>出现的现象</h3>
 
 <p>项目是使用 <a href="http://cordova.apache.org/">phoneGap（现称 Cordova ）</a> 框架，<code>JS</code> 端 从 <code>Navite</code> 端获取到处理数据后，其实是段可执行的 <code>JS</code> 代码，当要执行它时，报 <strong>“SyntaxError: Unexpected token ILLEGAL”</strong> 的错误，意思是不合法的记号，代码无法再执行下去，使用肉眼在 <code>Linux</code> 下看到是空白行，在 <code>Windows</code> 下看到的是一些特殊字符， <a href="http://cordova.apache.org/">phoneGap</a> 的关键代码为</p>

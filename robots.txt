@@ -1,4 +1,4 @@
 User-agent: *
 Disallow: 
 
-Sitemap: http://www.wensj.net/sitemap.xml 
+Sitemap: http://wwwensj.github.com/sitemap.xml 

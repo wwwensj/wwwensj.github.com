@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[分类: 翻译 | Wensj's Blog]]></title>
-  <link href="http://www.wensj.net/blog/categories/fan-yi/atom.xml" rel="self"/>
-  <link href="http://www.wensj.net/"/>
-  <updated>2014-10-22T16:21:12+08:00</updated>
-  <id>http://www.wensj.net/</id>
+  <link href="http://wwwensj.github.com/blog/categories/fan-yi/atom.xml" rel="self"/>
+  <link href="http://wwwensj.github.com/"/>
+  <updated>2014-10-22T16:27:05+08:00</updated>
+  <id>http://wwwensj.github.com/</id>
   <author>
     <name><![CDATA[Wensj]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[iOS 7模糊技巧]]></title>
-    <link href="http://www.wensj.net/blog/2014/05/11/ios-7mo-hu-ji-qiao/"/>
+    <link href="http://wwwensj.github.com/blog/2014/05/11/ios-7mo-hu-ji-qiao/"/>
     <updated>2014-05-11T21:05:22+08:00</updated>
-    <id>http://www.wensj.net/blog/2014/05/11/ios-7mo-hu-ji-qiao</id>
+    <id>http://wwwensj.github.com/blog/2014/05/11/ios-7mo-hu-ji-qiao</id>
     <content type="html"><![CDATA[<p>原文出处：<a href="http://damir.me/ios7-blurring-techniques">http://damir.me/ios7-blurring-techniques</a></p>
 
 <hr />
