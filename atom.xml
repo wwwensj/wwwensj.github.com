@@ -4,7 +4,7 @@
   <title><![CDATA[Wensj's Blog]]></title>
   <link href="http://wwwensj.github.com/atom.xml" rel="self"/>
   <link href="http://wwwensj.github.com/"/>
-  <updated>2014-10-23T00:17:19+08:00</updated>
+  <updated>2014-10-23T00:31:45+08:00</updated>
   <id>http://wwwensj.github.com/</id>
   <author>
     <name><![CDATA[Wensj]]></name>
@@ -12,6 +12,15 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[<<周鸿祎自述:我的互联网方法论>>读书摘要]]></title>
+    <link href="http://wwwensj.github.com/blog/2014/10/23/%3C%3Czhou-hong-yi-zi-shu-wo-de-hu-lian-wang-fang-fa-lun-%3E%3Edu-shu-zhai-yao/"/>
+    <updated>2014-10-23T00:31:26+08:00</updated>
+    <id>http://wwwensj.github.com/blog/2014/10/23/<<zhou-hong-yi-zi-shu-wo-de-hu-lian-wang-fang-fa-lun->>du-shu-zhai-yao</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[用Octopress免费搭建Github博客]]></title>
