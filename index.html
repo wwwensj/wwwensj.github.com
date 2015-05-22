@@ -7,7 +7,7 @@
 	<meta name="author" content="Wensj">
 
 	
-	<meta name="description" content="Oct 23rd, 2014 读书笔记 Comments >读书摘要 小插曲 首先纠正 周鸿祎 这三个字的读法，开始我都是以为是读 zhou hong wei，值得最近同事才提醒，最后一个字不读 wei，读 yi，才发现，我错了好多年，而且一直这么叫，也好像没人帮我纠正，也没人说我读错了， &hellip;">
+	<meta name="description" content="May 21st, 2015 iOS Comments iOS常用开源库 这里记录的都是一些比较好的 iOS 开源库，涉及各个方面的内容，感觉这些开源的作者。此文章将持续更新 网络请求 1、AFNetworking 网络请求的封装，相信不用多说，开发过iOS的都应该会知道； 2、 &hellip;">
 	
 
   <!-- http://t.co/dKP3o1e -->
@@ -89,6 +89,99 @@ Your work is going to fill a large part of your life, and the only way to be tru
 			<div class="mid-col-container">
 				<div id="content" class="inner">
 <div itemscope itemtype="http://schema.org/Blog">
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-05-21T10:44:02+08:00" data-updated="true" itemprop="datePublished">May 21<span>st</span>, 2015</time></div>
+		<div class="tags">
+
+
+	<a class='category' href='/blog/categories/ios/'>iOS</a>
+
+
+</div>
+		
+			<span class="comments"><a href="/blog/2015/05/21/ioschang-yong-kai-yuan-ku/#disqus_thread">Comments</a></span>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2015/05/21/ioschang-yong-kai-yuan-ku/" itemprop="url">iOS常用开源库</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<p>这里记录的都是一些比较好的 <code>iOS</code> 开源库，涉及各个方面的内容，感觉这些开源的作者。此文章将<strong>持续更新</strong></p>
+
+<h1>网络请求</h1>
+
+<p>1、<strong><a href="https://github.com/AFNetworking/AFNetworking">AFNetworking</a></strong> 网络请求的封装，相信不用多说，开发过<code>iOS</code>的都应该会知道；</p>
+
+<p>2、<strong><a href="https://github.com/yuantiku/YTKNetwork">YTKNetwork</a></strong> <code>iOS</code>大牛唐巧出口，官方介绍:YTKNetwork 是猿题库 iOS 研发团队基于 AFNetworking 封装的 iOS 网络库，其实现了一套 High Level 的 API，提供了更高层次的网络访问抽象；</p>
+
+<h1>效果类</h1>
+
+<p>1、<strong><a href="https://github.com/SeniorZhai/ScoreBoard">ScoreBoard</a></strong> 数字滚动变化，圆形进度条；</p>
+
+<p>2、<strong><a href="https://github.com/mikeMTOL/UIBarButtonItem-Badge">UIBarButtonItem-Badge</a></strong> <code>UIBarButtonItem</code> 和 <code>UIButton</code> 添加气泡显示；</p>
+
+<p>3、<strong><a href="https://github.com/ChrisXu1221/CXPhotoBrowser">CXPhotoBrowser</a></strong> 一个图片浏览的库；</p>
+
+<p>4、<strong><a href="https://github.com/azxfire/MJPhotoBrowser">MJPhotoBrowser</a></strong> 一个图片浏览的库；</p>
+
+<p>5、<strong><a href="https://github.com/mwaterfall/MWPhotoBrowser">MWPhotoBrowser</a></strong> 一个图片浏览的库；</p>
+
+<h1>UITableView</h1>
+
+<p>1、<strong><a href="https://github.com/forkingdog/UITableView-FDTemplateLayoutCell">UITableView-FDTemplateLayoutCell</a></strong> 优化UITableViewCell高度计算，以比较简单的方式，支持<code>iOS6.0+</code>,并且性能得到不少的提升，需要了解原理可看这篇<a href="http://blog.sunnyxx.com/2015/05/17/cell-height-calculation/">博文</a></p>
+
+<h1>图片加载</h1>
+
+<p>1、<strong><a href="https://github.com/rs/SDWebImage">SDWebImage</a></strong> 这个相信也不用多说，图片网络请求封装，之前也有相关文章与其它库进行对比，性能不错；</p>
+
+<h1>开发工具、脚本</h1>
+
+<p>1、<strong><a href="https://github.com/krzysztofzablocki/KZBootstrap">KZBootstrap</a></strong> 一个<code>iOS</code>项目引导程序；</p>
+
+<p>2、<strong><a href="https://github.com/kejinlu/capimage">capimage</a></strong>一个使用python的PIL库写的脚本，用于将一个普通的图片去除重复部分生成一个可伸缩的图片（resizable image），这样使得图片资源的使用更加灵活和节省空间；</p>
+
+<h1>账号接入</h1>
+
+<p>1、<strong><a href="https://github.com/nst/STTwitter">STTwitter</a></strong> 一个封装了Twitter官方REST Api的库，目前Twitter官方本身也有自身的<code>iOS SDK</code>,通过<code>Fabric</code>客户端可以进行配置安装；</p>
+
+<h1>支付接入</h1>
+
+<p>1、<strong><a href="https://github.com/paypal/PayPal-iOS-SDK">PayPal-iOS-SDK</a></strong> <code>PayPal-iOS-SDK</code>接入的官方示例；</p>
+
+<h1>扩展</h1>
+
+<p>1、<strong><a href="https://github.com/uacaps/NSObject-ObjectMap">NSObject-ObjectMap</a></strong> 是一个能将<code>JSON</code>或<code>XML</code>等格式的数据直接转换成想要的对象;</p>
+
+<h1>完整项目</h1>
+
+<p>1、<strong><a href="https://coding.net/u/coding/p/Coding-iOS/git">Coding-iOS</a></strong> 一个完整的<code>iOS</code>客户端源码，更新频繁，涉及的东西比较多，值得学习；</p>
+
+<h1>问题类</h1>
+
+<p>1、<strong><a href="https://github.com/Xummer/ColorDifferenceDemo">ColorDifferenceDemo</a></strong> Xcode自带取色器与<code>UIColor</code>有色差的解决办法；</p>
+
+<h1>其它</h1>
+
+<p>1、<strong><a href="https://github.com/jyr/MNPP">MNPP</a></strong> 一键安装一个高性能的<code>Web Server</code>,<code>MNPP</code>是Mac + Nginx + Percona + PHP 的组合简称；</p>
+
+		
+		
+	</div>
+
+</article>
 
 
     <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
@@ -999,7 +1092,7 @@ Your work is going to fill a large part of your life, and the only way to be tru
 </nav></div>
 			</div>
 			<footer id="footer" class="inner"><p>
-  Copyright &copy; 2014 - Wensj -
+  Copyright &copy; 2015 - Wensj -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 
