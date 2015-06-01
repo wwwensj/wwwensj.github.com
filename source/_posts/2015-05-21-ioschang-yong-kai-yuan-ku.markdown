@@ -27,10 +27,19 @@ categories: iOS
 #UITableView
 1、**[UITableView-FDTemplateLayoutCell][4]** 优化UITableViewCell高度计算，以比较简单的方式，支持`iOS6.0+`,并且性能得到不少的提升，需要了解原理可看这篇[博文][5]
 
+#UITabBar
+1、**[RDVTabBarController][19]** 一个方便设置`tabbar`的类；
+
 
 #图片加载
 1、**[SDWebImage][6]** 这个相信也不用多说，图片网络请求封装，之前也有相关文章与其它库进行对比，性能不错；
 
+
+#响应式编码
+1、**[ReactiveCocoa][20]** 是由Github 开源的一个应用于iOS和OS X开发的新框架。RAC具有函数式编程和响应式编程的特性。它主要吸取了.Net的 Reactive Extensions的设计和实现。文章介绍在[猛戳这里][21]，还有[这个][22];
+
+#效率类
+1、**[Masonry][24]** 能让你用代码更快速地编写 `Constraint`,使用说明看**[这里][23]**；
 
 #开发工具、脚本
 1、**[KZBootstrap][7]** 一个`iOS`项目引导程序；
@@ -78,3 +87,9 @@ categories: iOS
 [16]: https://github.com/mwaterfall/MWPhotoBrowser
 [17]: https://coding.net/u/coding/p/Coding-iOS/git
 [18]: https://github.com/uacaps/NSObject-ObjectMap
+[19]: https://github.com/robbdimitrov/RDVTabBarController
+[20]: https://github.com/ReactiveCocoa/ReactiveCocoa
+[21]: http://www.devtang.com/blog/2014/02/11/reactivecocoa-introduction/
+[22]: http://limboy.me/ios/2013/12/27/reactivecocoa-2.html
+[23]: http://adad184.com/2014/09/28/use-masonry-to-quick-solve-autolayout/
+[24]: https://github.com/SnapKit/Masonry
